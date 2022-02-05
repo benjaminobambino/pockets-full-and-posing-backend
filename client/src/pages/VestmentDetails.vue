@@ -23,6 +23,8 @@
 <script>
 import axios from 'axios'
 const API_URL = process.env.VUE_APP_BASE_URL
+const authUser = process.env.VUE_APP_AUTH_USER
+const authPassword = process.env.VUE_APP_AUTH_PASSWORD
   
 export default {
   name: 'VestmentDetails',
@@ -42,31 +44,25 @@ export default {
       if (this.vestment.quantity === 1) {
         await axios.delete(`${API_URL}/items/${vestmentId}`, {
         auth: {
-          username: 'pfpadmin',
-          password: 'pocketses'
+          username: authUser,
+          password: authPassword
         }
         })
         .then(() => {
-          alert('Your item has been purchased!')
+          alert(`${this.vestment.name} has been deleted.`)
           this.$router.push('/')
         })
       } else {
-        await axios.put(`${API_URL}/items/${vestmentId}`, { 
-          'name': this.vestment.name,
-          'department': this.vestment.department,
-          'description': this.vestment.description,
-          'image': this.vestment.image,
-          'price': this.vestment.price,
-          'size': this.vestment.size,
-          'quantity': this.vestment.quantity -= 1
+        await axios.put(`${API_URL}/items/${vestmentId}`, { ...this.vestment,
+          quantity: this.vestment.quantity -= 1
         }, {
           auth: {
-            'username': 'pfpadmin',
-            'password': 'pocketses'
+            username: authUser,
+            password: authPassword
           }
         })
         .then(() => {
-          alert('Your item has been purchased!')
+          alert(`Your ${this.vestment.name.toLowerCase()} has been purchased!`)
           this.getVestmentDetails()
         })
       }
