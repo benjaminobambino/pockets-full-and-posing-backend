@@ -33,6 +33,7 @@
 import axios from 'axios'
 import DepartmentCard from '../components/DepartmentCard.vue'
 import VestmentCard from '../components/VestmentCard.vue'
+const API_URL = process.env.VUE_APP_BASE_URL
 
 export default {
   name: 'Home',
@@ -53,11 +54,11 @@ mounted: async function() {
 },
 methods: {
   async getDepartments() {
-    const res = await axios.get(`http://localhost:8000/departments/`)
+    const res = await axios.get(`${API_URL}/departments/`)
     this.departments = res.data
   },
 async getVestments() {
-    const res = await axios.get(`http://localhost:8000/items/`)
+    const res = await axios.get(`${API_URL}/items/`)
     this.vestments = res.data
   },
   getSearchResults(e) {
