@@ -19,6 +19,8 @@
 <script>
 import axios from 'axios'
 import VestmentCard from '../components/VestmentCard.vue'
+import AppVue from '../App.vue'
+const API_URL = process.env.VUE_APP_BASE_URL
 
 export default {
   name: 'ViewVestments',
@@ -34,7 +36,7 @@ export default {
   },
   methods: {
     async getVestments() {
-      const res = await axios.get(`http://localhost:8000/items`)
+      const res = await axios.get(`${API_URL}/items`)
       this.vestments = res.data
     },
     sortVestments(e) {

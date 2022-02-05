@@ -22,6 +22,7 @@
 
 <script>
 import axios from 'axios'
+const API_URL = process.env.VUE_APP_BASE_URL
   
 export default {
   name: 'VestmentDetails',
@@ -34,12 +35,12 @@ export default {
   methods: {
     async getVestmentDetails() {
       const vestmentId = parseInt(this.$route.params.vestment_id)
-      const res = await axios.get(`http://localhost:8000/items/${vestmentId}`)
+      const res = await axios.get(`${API_URL}/items/${vestmentId}`)
       this.vestment = res.data
     },
     async buyVestment(vestmentId) {
       if (this.vestment.quantity === 1) {
-        await axios.delete(`http://localhost:8000/items/${vestmentId}`, {
+        await axios.delete(`${API_URL}/items/${vestmentId}`, {
         auth: {
           username: 'pfpadmin',
           password: 'pocketses'
@@ -50,7 +51,7 @@ export default {
           this.$router.push('/')
         })
       } else {
-        await axios.put(`http://localhost:8000/items/${vestmentId}`, { 
+        await axios.put(`${API_URL}/items/${vestmentId}`, { 
           'name': this.vestment.name,
           'department': this.vestment.department,
           'description': this.vestment.description,
