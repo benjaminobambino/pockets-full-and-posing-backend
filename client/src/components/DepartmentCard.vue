@@ -1,7 +1,7 @@
 <template>
   <div class="department-card">
     <div class="image-wrapper">
-      <img :src="department.image" :alt="department.name" />
+      <img class="card-image" :src="department.image" :alt="department.name" />
     </div>
     <div class="info-wrapper">
       <h3>{{ department.name }}</h3>
